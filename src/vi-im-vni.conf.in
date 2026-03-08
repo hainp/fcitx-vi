@@ -1,0 +1,7 @@
+[InputMethod]
+Name=Vietnamese VNI
+Name[vi]=Tiếng Việt VNI
+Icon=fcitx-vi
+LangCode=vi
+Addon=vi
+Label=Vi

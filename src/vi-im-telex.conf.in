@@ -1,0 +1,7 @@
+[InputMethod]
+Name=Vietnamese Telex
+Name[vi]=Tiếng Việt Telex
+Icon=fcitx-vi
+LangCode=vi
+Addon=vi
+Label=Vi
