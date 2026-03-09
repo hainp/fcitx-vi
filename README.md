@@ -77,80 +77,7 @@ This installs:
 - `vi-telex.conf` → `/usr/share/fcitx5/inputmethod/`
 - `vi-vni.conf` → `/usr/share/fcitx5/inputmethod/`
 
-## Setting Up Fcitx5
-
-### 1. Set Fcitx5 as the default input method framework
-
-```bash
-im-config -n fcitx5
-```
-
-This writes `run_im fcitx5` to `~/.xinputrc`. If your system has an ibus override script (e.g. `/etc/profile.d/pop-im-ibus.sh` on Pop!_OS), rename or remove it:
-
-```bash
-sudo mv /etc/profile.d/pop-im-ibus.sh /etc/profile.d/pop-im-ibus.sh.bak
-```
-
-### 2. Set environment variables
-
-Add to `/etc/environment` (system-wide) or `~/.profile` (per-user):
-
-```
-GTK_IM_MODULE=fcitx
-QT_IM_MODULE=fcitx
-XMODIFIERS=@im=fcitx
-SDL_IM_MODULE=fcitx
-```
-
-### 3. Autostart Fcitx5
-
-For COSMIC DE (or any desktop that doesn't auto-launch fcitx5):
-
-```bash
-cp /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/
-```
-
-### 4. Log out and log back in
-
-The environment variables only take effect in a new session.
-
-### 5. Add Vietnamese input method
-
-**Option A — Using fcitx5-configtool (GUI):**
-
-```bash
-fcitx5-configtool
-```
-
-Search for "Vietnamese Telex" or "Vietnamese VNI" and add it to your input method list.
-
-**Option B — Edit the profile manually:**
-
-Stop fcitx5 first (it overwrites the profile on exit):
-
-```bash
-pkill fcitx5
-```
-
-Edit `~/.config/fcitx5/profile` and add an entry:
-
-```ini
-[Groups/0/Items/2]
-# Name
-Name=vi-telex
-# Layout
-Layout=
-```
-
-Then start fcitx5:
-
-```bash
-fcitx5 -r -d
-```
-
-### 6. Switch input methods
-
-Use **Ctrl+Space** (default keybinding) to cycle between input methods.
+After installing, add "Vietnamese Telex" or "Vietnamese VNI" in `fcitx5-configtool`, then use **Ctrl+Space** to switch input methods.
 
 ## Verify Installation
 
@@ -161,18 +88,9 @@ fcitx5-diagnose | grep "Vietnamese"
 # Should show: Vietnamese 0.1.0
 ```
 
-## Troubleshooting
+## COSMIC DE Setup
 
-**Addon not loading:**
-- Run `fcitx5-diagnose` and check the "Addon List" section
-- Verify files exist: `ls /usr/share/fcitx5/addon/vi.conf /usr/share/fcitx5/inputmethod/vi-telex.conf /usr/lib/x86_64-linux-gnu/fcitx5/vi.so`
-
-**Input method not working in apps:**
-- Check env vars: `echo $GTK_IM_MODULE` should print `fcitx`
-- If it prints `ibus`, you need to log out and back in (see steps 1–4)
-
-**COSMIC DE settings doesn't show input methods:**
-- This is expected. COSMIC doesn't integrate with fcitx5. Use `fcitx5-configtool` instead.
+If you're using COSMIC DE on Pop!_OS, fcitx5 requires extra configuration since COSMIC doesn't natively support IME frameworks. See [docs/cosmic_de_fcitx5_setup.md](docs/cosmic_de_fcitx5_setup.md) for a complete setup guide.
 
 ## License
 
